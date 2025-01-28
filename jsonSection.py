@@ -134,6 +134,33 @@ class jsonSection:
                             optionSetTitle = optionSets["Name"]
 
                             linkCodes.append((seccion, item, optionSetTitle))
+                    
+        # Replace 'None' values in 'NextMenuItemOptionSetId' with the 'MenuItemOptionSetId' of the next OptionSet or -1 if none follows
+        for section in datos["MenuSections"]:
+            for items in section["MenuItems"]:
+                menuItemOptionSets = items["MenuItemOptionSets"]
+                for i, optionSets in enumerate(menuItemOptionSets):
+                    for optionSetItems in optionSets["MenuItemOptionSetItems"]:
+                        if optionSetItems["NextMenuItemOptionSetId"] is None:
+                            # Check if there's a next OptionSet
+                            if i + 1 < len(menuItemOptionSets):
+                                nextMenuItemOptionSetId = menuItemOptionSets[i + 1]["MenuItemOptionSetId"]
+                            else:
+                                # If it's the last OptionSet, set to -1
+                                nextMenuItemOptionSetId = -1
+                            
+                            # Update the JSON
+                            optionSetItems["NextMenuItemOptionSetId"] = nextMenuItemOptionSetId
+                            print(f"Updated 'NextMenuItemOptionSetId' for {optionSetItems['Name']} to {nextMenuItemOptionSetId}")
+
+        # Print all MenuItemOptionSets at the end
+        print("\nUpdated MenuItemOptionSets:")
+        for section in datos["MenuSections"]:
+            for items in section["MenuItems"]:
+                for optionSets in items["MenuItemOptionSets"]:
+                    print(f"OptionSet Name: {optionSets['Name']}, MenuItemOptionSetId: {optionSets['MenuItemOptionSetId']}")
+                    for optionSetItems in optionSets["MenuItemOptionSetItems"]:
+                        print(f"  OptionSetItem Name: {optionSetItems['Name']}, NextMenuItemOptionSetId: {optionSetItems['NextMenuItemOptionSetId']}")
 
         return linkCodes
 

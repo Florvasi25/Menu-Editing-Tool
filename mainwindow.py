@@ -1355,23 +1355,19 @@ class MainWindow(QMainWindow):
             QMessageBox.critical(self, 'Error', 'You must load a Json File first!',QMessageBox.Ok)
         else:
             linkCodes = jsonSection.find_link_codes(jsonSection,datos)
+            print("linkCodes: ", linkCodes)
 
-            if not linkCodes: #checks whether a list is empty
+            # if not linkCodes: #checks whether a list is empty
                 
-                nuevojson, _ = QFileDialog.getSaveFileName(self, ("Save JSON"), "", ("JSON file (*.json)"))
+            nuevojson, _ = QFileDialog.getSaveFileName(self, ("Save JSON"), "", ("JSON file (*.json)"))
 
-                if nuevojson:
-                    parser = parsejson(nuevojson)
-                    posJSON = parser.slot_generate_new_JSON(datos)
-                    #parser.check_and_disable_overrides(posJSON)
-                    QMessageBox.information(self, 'Success!','The POS JSON file has been created.',QMessageBox.Ok)
+            if nuevojson:
+                parser = parsejson(nuevojson)
+                posJSON = parser.slot_generate_new_JSON(datos)
+                #parser.check_and_disable_overrides(posJSON)
+                QMessageBox.information(self, 'Success!','The POS JSON file has been created.',QMessageBox.Ok)
 
-            else:
+            # else:
 
-                QMessageBox.critical(self, 'Error',
-                f'Link codes are not allow in POS Menus. You have one in "{linkCodes[0][0]}" Section -> "{linkCodes[0][1]}" Item -> "{linkCodes[0][2]}" Option Set. Delete it and upload the file again.',QMessageBox.Ok)
-
-
-
-
-
+            #     QMessageBox.critical(self, 'Error',
+            #     f'Link codes are not allow in POS Menus. You have one in "{linkCodes[0][0]}" Section -> "{linkCodes[0][1]}" Item -> "{linkCodes[0][2]}" Option Set. Delete it and upload the file again.',QMessageBox.Ok)
