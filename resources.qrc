@@ -1,0 +1,11 @@
+<RCC>
+  <qresource prefix="images">
+    <file>images/iconoFlipdish.ico</file>
+    <file>images/uparrow.png</file>
+    <file>images/dropdown.png</file>
+    <file>images/exit.ico</file>
+    <file>images/loadJson.ico</file>
+    <file>images/saveJson.ico</file>
+    <file>images/FDLOGOmet2.png</file>
+  </qresource>
+</RCC>
